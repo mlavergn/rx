@@ -45,6 +45,7 @@ export class Nested {
   }
 
   static demo() {
-    Nested.wrong();
+    // this.wrong();
+    this.correct();
   }
 }

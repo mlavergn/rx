@@ -4,7 +4,7 @@ import { of } from 'rxjs/observable/of';
 import { from } from 'rxjs/observable/from';
 
 // RxJS operators
-import { mergeMap, switchMap, concatMap, exhaustMap, map, repeat, delay, delayWhen } from 'rxjs/operators';
+import { mergeMap, switchMap, concatMap, exhaustMap, repeat } from 'rxjs/operators';
 
 // RxJS inlines
 import 'rxjs/add/operator/concatMap';

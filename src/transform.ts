@@ -23,20 +23,14 @@ export class Transform {
     }
 
     static demo() {
-        // outer observable events quickly
         const outer = this.makeObservable(['A', 'B', 'C', 'D'], 100);
 
         outer.pipe(
             map(
                 (item) => {
-                    return '_' + item;
-                    // return from(items).pipe(
-                    //     concatMap(
-                    //         item => {
-                    //             return of(item).delay(1000);
-                    //         }
-                    //     )
-                    // );
+                    if (item !== 'B') {
+                        return '_' + item;
+                    }
                 }
             )
         ).subscribe(
