@@ -1,13 +1,13 @@
-import { MergeMap } from './mergemap';
+import { Demo } from './demo';
 
 /**
- * Node test client for ENOS events
+ * Main class to load the demo classes
  */
-class Demo {
+class Main {
     public run() {
-        MergeMap.demo();
+        Demo.demo();
     }
 }
 
-const demo = new Demo();
-demo.run();
+const main = new Main();
+main.run();

@@ -18,7 +18,7 @@ build:
 watch:
 	tsc -t ES5 --lib es2017 --alwaysStrict -watch --diagnostics src/**.ts
 
-run:
+run: build
 	node src/main.js
 
 clean:
