@@ -12,14 +12,16 @@ import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/delay';
 
 /**
- * Demo of RxJS timed rotation
+ * Demo of RxJS timed loop
  */
-export class Rotation {
+export class Loop {
 
     static makeObservable(values: string[][], ival: number): Observable<string[]> {
-        const outer = from(values).concatMap(val => {
-            return of(val).delay(ival);
-        });
+        const outer = from(values).concatMap(
+            (val) => {
+                return of(val).delay(ival);
+            }
+        );
         return outer;
     }
 

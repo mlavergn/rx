@@ -16,9 +16,11 @@ import 'rxjs/add/operator/delay';
 export class Transform {
 
     static makeObservable(values: string[], ival: number): Observable<string> {
-        const outer = from(values).concatMap(val => {
-            return of(val).delay(ival);
-        });
+        const outer = from(values).concatMap(
+            (val) => {
+                return of(val).delay(ival);
+            }
+        );
         return outer;
     }
 
@@ -28,9 +30,7 @@ export class Transform {
         outer.pipe(
             map(
                 (item) => {
-                    if (item !== 'B') {
-                        return '_' + item;
-                    }
+                    return '_' + item;
                 }
             )
         ).subscribe(
