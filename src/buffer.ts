@@ -4,13 +4,13 @@ import { of } from 'rxjs/observable/of';
 import { from } from 'rxjs/observable/from';
 
 // RxJS operators
-import { mergeMap, switchMap, concatMap, exhaustMap, bufferTime, map } from 'rxjs/operators';
+import { mergeMap, switchMap, concatMap, exhaustMap, bufferTime, take, map, repeatWhen } from 'rxjs/operators';
 
 // RxJS inlines
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/concatMap';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/exhaustMap';
+// import 'rxjs/add/operator/switchMap';
+// import 'rxjs/add/operator/exhaustMap';
 import 'rxjs/add/operator/delay';
 import 'rxjs/add/operator/take';
 
@@ -29,11 +29,11 @@ export class Buffer {
         return outer;
     }
 
-    static demo() {
-        const items = this.makeObservable(['1', '2', '3', '4', '5'], 500);
+    static demoA() {
+        const event$ = this.makeObservable(['1', '2', '3', '4', '5'], 500);
 
-        // take 3 max
-        items.take(3).mergeMap(
+        // take 3 max and unsubscribes
+        event$.take(3).mergeMap(
             (item) => {
                 console.log('merge', item);
                 return of(item);
@@ -50,10 +50,46 @@ export class Buffer {
             )
         // only the first event is to be processed
         ).take(1).subscribe(
-          (items) => {
-            console.log(Date.now(), items);
-          }
+            (items) => {
+                console.log(Date.now(), items);
+            }
         );
     }
-  }
+
+    static demoB() {
+        const event$ = this.makeObservable(['1', '2', '3', '4', '5', '6', '7'], 500);
+
+        // take 3 max
+        event$.take(3).mergeMap(
+            (item) => {
+                console.log('merge', item);
+                return of(item);
+            }
+        ).pipe(
+            // all we receive in 1 second
+            bufferTime(1100),
+            map(
+                (items) => {
+                    console.log(items);
+                    return items;
+                }
+            ),
+            repeatWhen(
+                (notifs) => {
+                    return notifs;
+                }
+            )
+            // only the first event is to be processed
+        ).subscribe(
+            (items) => {
+                console.log(Date.now(), items);
+            }
+        );
+    }
+
+    static demo() {
+        const a = false;
+        return a ? this.demoA() : this.demoB();
+    }
+}
 

@@ -3,6 +3,7 @@ import { Nested } from './nested';
 import { Loop } from './loop';
 import { Transform } from './transform';
 import { Buffer } from './buffer';
+import { Finalizer } from './finalizer';
 
 /**
  * Main class to load the demo classes
@@ -13,7 +14,8 @@ class Main {
         // Nested.demo();
         // Loop.demo();
         // Transform.demo();
-        Buffer.demo();
+        // Buffer.demo();
+        Finalizer.demo();
     }
 }
 
