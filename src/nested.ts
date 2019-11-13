@@ -4,11 +4,16 @@ import { from } from 'rxjs/observable/from';
 import { mergeMap, switchMap, concatMap, exhaustMap } from 'rxjs/operators';
 import 'rxjs/add/operator/map';
 
+/**
+ * RxJS demo of nested subscribe vs mapped inner observable
+ */
 export class Nested {
   static outer$ = from(['A', 'B', 'C']);
   static inner$ = from(['a', 'b', 'c']);
 
-  // do not do this
+  // nested subscribe, do not do this, this (can) create race conditions
+  // and it's unclear when the outer subscription will complete
+  // NOTE: nested subscribes are effectively mergeMaps
   static wrong() {
     this.outer$.subscribe(
       (oval) => {
@@ -24,7 +29,7 @@ export class Nested {
     );
   }
 
-  // instead do this
+  // instead pipe the observable into a map operator
   static correct() {
     this.outer$.pipe(
       concatMap(
