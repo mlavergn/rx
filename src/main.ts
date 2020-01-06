@@ -6,6 +6,7 @@ import { Buffer } from './buffer';
 import { Finalizer } from './finalizer';
 import { Interval } from './interval';
 import { Unsubscribe } from './unsubscribe';
+import { Shared } from './shared';
 
 /**
  * Main class to load the demo classes
@@ -20,7 +21,8 @@ class Main {
     // Finalizer.demo();
     // Interval.demo();
     // Custom.demo();
-    Unsubscribe.demo();
+    // Unsubscribe.demo();
+    Shared.demo();
   }
 }
 
